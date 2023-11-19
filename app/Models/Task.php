@@ -16,7 +16,12 @@ class Task extends Model
      */
     protected $fillable = [
         'text',
+        'title',
         'user_id',
+        'is_done',
     ];
 
+    protected $casts = [
+        'is_done' => 'boolean'
+    ];
 }

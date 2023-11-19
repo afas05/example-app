@@ -16,7 +16,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        return TaskResource::collection(Task::all());
     }
 
     /**
@@ -32,12 +32,15 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        Task::create(
+        $task = Task::create(
             [
-                //'user_id' => Auth::user()->id,
+                //'user_id' => Auth::user()->id, TODO: after login
+                'title'   => $request->title,
                 'text'    => $request->text,
             ]
         );
+
+        return new TaskResource($task);
     }
 
     /**
@@ -62,9 +65,7 @@ class TaskController extends Controller
     public function update(StoreTaskRequest $request, string $id)
     {
         Task::where('id', $id)->update(
-            [
-                'text' => $request->text,
-            ]
+            $request->validated()
         );
     }
 
@@ -73,6 +74,15 @@ class TaskController extends Controller
      */
     public function destroy(int $id)
     {
-        Task::destroy($id);
+        Task::destroy($id); // TODO: add user id after login
+    }
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function markDone(int $id)
+    {
+        Task::where('id', $id)->update(['is_done' => true]);
     }
 }
