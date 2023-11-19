@@ -20,11 +20,7 @@ export default {
           email: this.email,
           password: this.password
       }).then(response => {
-        this.getUserData().then(() => {
-          if (localStorage.userEmail) {
-            router.push('/tasks');
-          }
-        });
+        this.getUserData();
       }).catch((error) => {
         localStorage.removeItem('userEmail');
       });
@@ -35,13 +31,11 @@ export default {
         .get(url)
         .then(response => {
           localStorage.userEmail = response.data.email;
+          router.push('/tasks');
         })
     },
     skip() {
       this.getUserData(true);
-      if (localStorage.userEmail) {
-        router.push('/tasks');
-      }
     }
   }
 };
