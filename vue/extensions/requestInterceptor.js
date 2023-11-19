@@ -1,8 +1,9 @@
 import Cookies from 'js-cookie';
+import axios from "axios";
 
 // Create axios instance with base url and credentials support
 export const axiosInstance = axios.create({
-    baseURL: 'http://localhost/api',
+    baseURL: 'http://localhost',
     withCredentials: true,
 });
 
@@ -24,7 +25,7 @@ const onRequest = (config) => {
 }
 
 const setCSRFToken = () => {
-    return axiosInstance.get('/csrf-cookie'); // resolves to '/api/csrf-cookie'.
+    return axiosInstance.get('/sanctum/csrf-cookie'); // resolves to '/api/csrf-cookie'.
 }
 
 // attach your interceptor

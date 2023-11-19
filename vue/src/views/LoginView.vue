@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 import router from '../router/index.js'
+import axiosInstance from "../../extensions/requestInterceptor";
 export default {
   data() {
     return {
@@ -15,27 +16,22 @@ export default {
   },
   methods: {
     login() {
-      axios.defaults.withCredentials = true;
-      axios.get('http://localhost/sanctum/csrf-cookie').then(response => {
-        if (response.status === 204) {
-          axios.post('http://localhost/login', {
-              email: this.email,
-              password: this.password
-          }).then(response => {
-            this.getUserData().then(() => {
-              if (localStorage.userEmail) {
-                router.push('/tasks');
-              }
-            });
-          }).catch((error) => {
-            localStorage.removeItem('userEmail');
-          })
-        }
+      axiosInstance.post('http://localhost/login', {
+          email: this.email,
+          password: this.password
+      }).then(response => {
+        this.getUserData().then(() => {
+          if (localStorage.userEmail) {
+            router.push('/tasks');
+          }
+        });
+      }).catch((error) => {
+        localStorage.removeItem('userEmail');
       });
     },
     getUserData(skip = false) {
-      let url = 'http://localhost/api/user' + (skip ? '?skip=1' : '');
-      axios
+      let url = '/api/user' + (skip ? '?skip=1' : '');
+      axiosInstance
         .get(url)
         .then(response => {
           localStorage.userEmail = response.data.email;
