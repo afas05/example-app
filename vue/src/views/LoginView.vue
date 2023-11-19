@@ -54,11 +54,13 @@ export default {
                 <input v-model="password" type="password" class="form-control" id="password">
             </div>
             <button @click.prevent="login" type="submit" class="btn btn-primary">Login</button>
-            <button @click.prevent="skip" class="btn btn-primary">skipp</button>
+            <button @click.prevent="skip" id="skip-login" class="btn btn-primary">Skip Login</button>
         </form>
     </main>
 </template>
 
 <style scoped>
-
+  #skip-login {
+    margin-left: 0.5rem;
+  }
 </style>
