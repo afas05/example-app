@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import axiosInstance from "../../extensions/requestInterceptor";
 
 export default {
   name: "FinishedTask",
@@ -9,7 +10,7 @@ export default {
   },
   methods: {
     deleteTask(id) {
-      axios.delete('http://localhost/api/tasks/' + id).then(response => {
+      axiosInstance.delete('api/tasks/' + id).then(response => {
         this.$emit('taskDeleted', id);
       });
     },

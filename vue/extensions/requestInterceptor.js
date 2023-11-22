@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Create axios instance with base url and credentials support
 export const axiosInstance = axios.create({
-    baseURL: 'http://localhost',
+    baseURL: '/',
     withCredentials: true,
 });
 
@@ -25,7 +25,7 @@ const onRequest = (config) => {
 }
 
 const setCSRFToken = () => {
-    return axiosInstance.get('/sanctum/csrf-cookie'); // resolves to '/api/csrf-cookie'.
+    return axiosInstance.get('sanctum/csrf-cookie'); // resolves to '/api/csrf-cookie'.
 }
 
 // attach your interceptor

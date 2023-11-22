@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import axiosInstance from "../../extensions/requestInterceptor";
 
 export default {
   name: "EditTask",
@@ -17,8 +18,8 @@ export default {
   methods: {
     saveChanges() {
       this.errors = {};
-      axios.patch(
-        'http://localhost/api/tasks/' + this.$props.task.id,
+      axiosInstance.patch(
+        'api/tasks/' + this.$props.task.id,
         {
           title: this.title,
           text: this.text
@@ -34,7 +35,7 @@ export default {
     createTask() {
       this.errors = {};
 
-      axios.post('http://localhost/api/tasks', {
+      axiosInstance.post('api/tasks', {
         title: this.title,
         text: this.text
       }).then(response => {

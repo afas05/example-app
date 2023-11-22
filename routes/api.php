@@ -16,7 +16,7 @@ use App\Http\Controllers\TaskController;
 |
 */
 
-Route::get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     if ($request->has('skip')) {
         return response()->json(\App\Models\User::find(1)->toArray());
     } else {
@@ -24,7 +24,7 @@ Route::get('/user', function (Request $request) {
     }
 });
 
-Route::resource('tasks', TaskController::class)
+Route::middleware('auth:sanctum')->resource('tasks', TaskController::class)
     ->missing(function (Request $request) {
         return response()->abort(404);
     });

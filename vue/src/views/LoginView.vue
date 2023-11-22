@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     login() {
-      axiosInstance.post('http://localhost/login', {
+      axiosInstance.post('login', {
           email: this.email,
           password: this.password
       }).then(response => {
@@ -26,7 +26,7 @@ export default {
       });
     },
     getUserData(skip = false) {
-      let url = '/api/user' + (skip ? '?skip=1' : '');
+      let url = 'api/user' + (skip ? '?skip=1' : '');
       axiosInstance
         .get(url)
         .then(response => {

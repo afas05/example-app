@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import axiosInstance from "../../extensions/requestInterceptor";
 
 export default {
   name: "TaskCard",
@@ -9,13 +10,13 @@ export default {
   },
   methods: {
     deleteTask(id) {
-      axios.delete('http://localhost/api/tasks/' + id).then(response => {
+      axiosInstance.delete('api/tasks/' + id).then(response => {
         this.$emit('taskDeleted', id);
       });
     },
     markFinished() {
-      axios.patch(
-        'http://localhost/api/tasks/' + this.$props.task.id + '/done',
+      axiosInstance.patch(
+        'api/tasks/' + this.$props.task.id + '/done',
         {
           is_done: true
         }

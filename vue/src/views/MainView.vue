@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 import TaskList from "@/components/TaskList.vue";
+import axiosInstance from "../../extensions/requestInterceptor";
 
 export default {
   name: "MainView",
@@ -13,7 +14,7 @@ export default {
   },
   methods: {
     getTasks() {
-      axios.get('http://localhost/api/tasks').then(response => {
+      axiosInstance.get('api/tasks').then(response => {
         this.tasks = response.data.data;
       })
     },
